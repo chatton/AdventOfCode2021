@@ -29,8 +29,7 @@ func loadPuzzleInput() []int {
 	return numbers
 }
 
-func main() {
-	depths := loadPuzzleInput()
+func Part1(depths []int) int {
 	numIncreases := 0
 	for i := 1; i < len(depths); i++ {
 		prev := depths[i-1]
@@ -39,5 +38,26 @@ func main() {
 			numIncreases++
 		}
 	}
-	fmt.Println(numIncreases)
+	return numIncreases
+}
+
+func Part2(depths []int) int {
+	numIncreases := 0
+	prevSum := 0
+	for i := 1; i < len(depths)-2; i++ {
+		threeSum := 0
+		for j := i; j < i+3; j++ {
+			threeSum += depths[j]
+		}
+		if threeSum > prevSum {
+			numIncreases++
+		}
+		prevSum = threeSum
+	}
+	return numIncreases
+}
+
+func main() {
+	fmt.Println(Part1(loadPuzzleInput()))
+	fmt.Println(Part2(loadPuzzleInput()))
 }
